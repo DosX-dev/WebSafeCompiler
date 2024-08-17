@@ -1,3 +1,5 @@
+![](pics/preview.jpg)
+
 # WebSafeCompiler (WSC)
 
 **WebSafeCompiler** (WSC) is an advanced utility designed for the optimization, minification, and obfuscation (if you need it) of web applications and websites using `NodeJS`. It enhances your web assets by reducing file sizes and providing robust protection against reverse engineering, ensuring your code is deployment-ready and secure.
