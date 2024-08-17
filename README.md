@@ -25,7 +25,7 @@ node wsc.js <input_dir> <output_dir> [--drm] [--smart]
 
 ### 👨🏼‍💻 Usage example:
 ```bash
-node WebSafeCompiler.js "/path/to/source" "/path/to/output" --drm --smart
+node wsc.js "/path/to/source" "/path/to/output" --drm --smart
 ```
 
 This command will process all files within the specified source directory, optimize them, and, if the obfuscation flag is enabled, protect the code from unauthorized access or tampering. The output files will be ready for deployment in your web environment.
