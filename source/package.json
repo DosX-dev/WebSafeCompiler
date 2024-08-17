@@ -1,0 +1,22 @@
+{
+    "name": "WebSafeCompiler",
+    "version": "1.0.0",
+    "description": "WebSafeCompiler is a utility designed to optimize web applications and websites, and obfuscate their code if necessary.",
+    "main": "wsc.js",
+    "bin": {
+        "wsc": "wsc.js"
+    },
+    "scripts": {
+        "start": "node wsc.js",
+        "test": "echo \"No tests specified\" && exit 0"
+    },
+    "dependencies": {
+        "uglify-js": "^3.17.0",
+        "javascript-obfuscator": "^4.0.0"
+    },
+    "engines": {
+        "node": ">=14.0.0"
+    },
+    "license": "MIT",
+    "author": "DosX"
+}
