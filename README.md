@@ -2,7 +2,7 @@
 
 # WebSafeCompiler (WSC)
 
-**WebSafeCompiler** (WSC) is an advanced utility designed for the optimization, minification, and obfuscation (if you need it) of web applications and websites using `NodeJS`. It enhances your web assets by reducing file sizes and providing robust protection against reverse engineering, ensuring your code is deployment-ready and secure.
+**WebSafeCompiler** (WSC) is an advanced utility designed for the optimization, minification, and obfuscation (if you need it) of web applications and websites using `Node.js`. It enhances your web assets by reducing file sizes and providing robust protection against reverse engineering, ensuring your code is deployment-ready and secure.
 
 ## 🚀 Little about
 
@@ -56,5 +56,5 @@ To get started with **WebSafeCompiler**, you'll need to have [Node.js](https://n
 
 4. **Done! You can use WSC.**
 
-## License 📜
+## 📜 License
 This project is licensed under the MIT License. For more details, please refer to the [LICENSE](./LICENSE) file.
