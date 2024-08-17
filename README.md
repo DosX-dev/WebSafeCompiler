@@ -46,7 +46,7 @@ To get started with **WebSafeCompiler**, you'll need to have [Node.js](https://n
   - If you haven't already, clone the repository to your local machine:
     ```bash
     git clone <repository-url>
-    cd <repository-directory>
+    cd <repository-directory>/source
     ```
 
 3. **Install dependencies**:
