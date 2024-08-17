@@ -14,7 +14,7 @@ node wsc.js <input_dir> <output_dir> [--drm] [--smart]
 ### Arguments & options:
 * `<input_dir>`: Directory containing the source files to be processed.
 * `<output_dir>`: Directory where the optimized and obfuscated files will be output.
-* `-d, --drm`: Enables code obfuscation (DRM protection) to secure your JavaScript code against unauthorized analysis.
+* `-d, --drm`: Enables code obfuscation (DRM protection) to secure your source code against unauthorized analysis.
   * **🚫 disabled**: The utility focuses on optimizing your website’s files, ensuring they are lightweight and efficient.
   * **✅ enabled**: The utility emphasizes the protection of your intellectual property by applying rigorous obfuscation techniques to your code.
     * **HTML obfuscation**: HTML files are also obfuscated by adding non-functional, random attributes to tags, making it more challenging for reverse-engineering attempts while preserving the visual and functional integrity of your web pages.
