@@ -6,7 +6,7 @@ const
     { fileURLToPath } = require('url');
 
 const version = {
-    current: "v1.0.0"
+    current: "v" + require('./package.json').version
 }
 
 const colors = {
