@@ -41,18 +41,15 @@ This command will process all files within the specified source directory, optim
 
 To get started with **WebSafeCompiler**, you'll need to have [Node.js](https://nodejs.org) installed on your system. Follow these steps to install the required packages:
 
-1. **Install Node.js**:
-  - Download and install Node.js from [Node.js official website](https://nodejs.org). Follow the installation instructions for your operating system.
+1. **Install Node.js**: Download and install Node.js from [Node.js official website](https://nodejs.org). Follow the installation instructions for your operating system.
 
-2. **Clone the repository**:
-  - If you haven't already, clone the repository to your local machine:
+2. **Clone the repository**: If you haven't already, clone the repository to your local machine:
     ```bash
     git clone <repository-url>
     cd <repository-directory>/source
     ```
 
-3. **Install dependencies**:
-  - Navigate to the project directory and install the necessary npm packages:
+3. **Install dependencies**: Navigate to the project directory and install the necessary npm packages:
     ```bash
     npm install
     ```
