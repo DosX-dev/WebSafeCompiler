@@ -72,7 +72,9 @@ const obfuscationPreset = {
         renameGlobals: false,
         stringArray: true,
         stringArrayEncoding: ['base64'],
-        stringArrayThreshold: 1
+        stringArrayThreshold: 1,
+        identifiersPrefix: 'wsc_',
+        identifierNamesGenerator: 'mangled-shuffled'
     },
     minificationPreset = {
         mangle: true,
