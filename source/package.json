@@ -1,6 +1,6 @@
 {
     "name": "WebSafeCompiler",
-    "version": "1.0.0",
+    "version": "1.1.0",
     "description": "WebSafeCompiler is a utility designed to optimize web applications and websites, and obfuscate their code if necessary.",
     "main": "wsc.js",
     "bin": {

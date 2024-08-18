@@ -277,15 +277,22 @@ function minifyCss(content) {
 }
 
 const obfuscationPreset = {
-    compact: true,
-    controlFlowFlattening: true,
-    deadCodeInjection: true,
-    debugProtection: false,
-    renameGlobals: false,
-    stringArray: true,
-    stringArrayEncoding: ['base64'],
-    stringArrayThreshold: 1
-};
+        compact: true,
+        controlFlowFlattening: true,
+        deadCodeInjection: true,
+        debugProtection: false,
+        renameGlobals: false,
+        stringArray: true,
+        stringArrayEncoding: ['base64'],
+        stringArrayThreshold: 1
+    },
+    minificationPreset = {
+        mangle: true,
+        compress: {
+            passes: 5,
+            drop_console: false
+        }
+    };
 
 function obfuscateAndMinifyInlineScripts(html, obfuscate) {
     try {
@@ -296,13 +303,7 @@ function obfuscateAndMinifyInlineScripts(html, obfuscate) {
                     processedCode = JavaScriptObfuscator.obfuscate(code, obfuscationPreset).getObfuscatedCode();
                 }
 
-                const minified = UglifyJS.minify(processedCode, {
-                    mangle: true,
-                    compress: {
-                        passes: 5,
-                        drop_console: true
-                    }
-                }).code;
+                const minified = UglifyJS.minify(processedCode, minificationPreset).code;
 
                 if (minified) {
                     return `<script>${minified}</script>`;
@@ -325,13 +326,7 @@ function obfuscateAndMinifyJs(content, obfuscate) {
             processedContent = JavaScriptObfuscator.obfuscate(content, obfuscationPreset).getObfuscatedCode();
         }
 
-        const minifiedContent = UglifyJS.minify(processedContent, {
-            mangle: true,
-            compress: {
-                passes: 3,
-                drop_console: true
-            }
-        }).code;
+        const minifiedContent = UglifyJS.minify(processedContent, minificationPreset).code;
 
         if (minifiedContent === undefined) throw new Error("Minification failed.");
         return minifiedContent;
