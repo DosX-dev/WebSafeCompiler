@@ -427,8 +427,9 @@ function obfuscateAndMinifyJs(content, obfuscate) {
 // Minify a file based on its extension and options
 function minifyFile(file, outputDir, obfuscate = false, smart = false) {
     try {
-        const ext = path.extname(file);
-        const outputFilePath = path.join(outputDir, path.relative(process.argv[2], file));
+        const
+            ext = path.extname(file),
+            outputFilePath = path.join(outputDir, path.relative(process.argv[2], file));
 
         fs.mkdirSync(path.dirname(outputFilePath), { recursive: true });
 
@@ -479,9 +480,10 @@ function minifyFile(file, outputDir, obfuscate = false, smart = false) {
 // Print statistics about the files processed
 function printFileStats(files, obfuscate) {
     try {
-        const totalFiles = files.length;
-        const skippedFiles = files.filter(file => !['.js', '.css', '.html', '.htm'].includes(path.extname(file))).length;
-        const processedFiles = totalFiles - skippedFiles;
+        const
+            totalFiles = files.length,
+            skippedFiles = files.filter(file => !['.js', '.css', '.html', '.htm'].includes(path.extname(file))).length,
+            processedFiles = totalFiles - skippedFiles;
 
         console.log(`Source files detected: ${colors.fg.brightCyan}${processedFiles}${colors.reset}\n` +
             `Resource files detected: ${colors.fg.brightYellow}${skippedFiles}${colors.reset}\n`);
