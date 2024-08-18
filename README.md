@@ -1,11 +1,9 @@
 ![](pics/preview.jpg)
 
 # WebSafeCompiler (WSC)
-
-**WebSafeCompiler** (WSC) is an advanced utility designed for the optimization, minification, and obfuscation (if you need it) of web applications and websites using `Node.js`. It enhances your web assets by reducing file sizes and providing robust protection against reverse engineering, ensuring your code is deployment-ready and secure.
+**WebSafeCompiler** (WSC) is an advanced utility designed for the optimization, minification, and obfuscation (if you need it) of web applications and websites using `Node.js`. It enhances your web assets by reducing file sizes or providing durable protection against reverse engineering, ensuring your code is deployment-ready and secure.
 
 ## 🚀 Little about
-
 To leverage the full potential of **WebSafeCompiler**, execute the following command in your terminal:
 ```bash
 node wsc.js <input_dir> <output_dir> [--drm] [--smart]
@@ -33,12 +31,11 @@ This command will process all files within the specified source directory, optim
 ![](pics/before_and_after.png)
 
 ## 📚 Libraries used
-**WebSafeCompiler** relies on cutting-edge libraries to deliver top-tier performance:
+**WebSafeCompiler** uses the following libraries to work with JavaScript codes:
 * **[uglify-js](https://www.npmjs.com/package/uglify-js)**: Provides sophisticated JavaScript preprocessing and minification, compressing your code without sacrificing functionality.
 * **[javascript-obfuscator](https://www.npmjs.com/package/javascript-obfuscator)**: Applies advanced techniques to protect your JavaScript code by obfuscating it, making it significantly harder for attackers to reverse-engineer.
 
 ## 🛠️ How to install?
-
 To get started with **WebSafeCompiler**, you'll need to have [Node.js](https://nodejs.org) installed on your system. Follow these steps to install the required packages:
 
 1. **Install Node.js**: Download and install Node.js from [Node.js official website](https://nodejs.org). Follow the installation instructions for your operating system.
