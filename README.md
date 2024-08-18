@@ -15,7 +15,7 @@ node wsc.js <input_dir> <output_dir> [--drm] [--smart]
 * `-d, --drm`: Enables code obfuscation (DRM protection) to secure your source code against unauthorized analysis.
   * **🚫 disabled**: The utility focuses on optimizing your website’s files, ensuring they are lightweight and efficient.
   * **✅ enabled**: The utility emphasizes the protection of your intellectual property by applying rigorous obfuscation techniques to your code.
-    * **HTML obfuscation**: HTML files are also obfuscated by adding non-functional, random attributes to tags, making it more challenging for reverse-engineering attempts while preserving the visual and functional integrity of your web pages.
+    * **HTML obfuscation**: HTML files are also obfuscated by adding non-functional random attributes and classes, making it difficult to reverse engineer while maintaining the visual and functional integrity of your web pages.
     * **JavaScript obfuscation**: Files using JavaScript will go through several stages of obfuscation, including adding unused code and encrypting strings.
 * `-s, --smart`: Automatically detects minified files and skips them. This includes JS and CSS files.
 * `-h, --help`: Displays the help message with detailed usage instructions.

@@ -225,18 +225,30 @@ function obfuscateHtml(html) {
         return html.replace(/<(\w+)(\s[^>]*?)?(\s*\/)?>/g, (match, tagName, attributes, closingSlash) => {
             if (!attributes || ['meta', 'noscript'].includes(tagName)) return `<${tagName}${attributes || ''}>`;
 
-            const
-                attrArray = attributes.trim().match(/\S+="[^"]*"|\S+='[^']*'|\S+/g),
-                obfuscatedAttrs = attrArray.map(attr => {
+            const attrArray = attributes.trim().match(/\S+="[^"]*"|\S+='[^']*'|\S+/g);
 
+            const obfuscatedAttrs = attrArray.map(attr => {
+                let obfuscatedAttr = attr;
+
+                if (/^class=['"]/.test(attr)) {
                     const
-                        randomBefore = getRandomString(getRandomNumber(5, 7)),
-                        randomAfter = getRandomString(getRandomNumber(5, 7));
+                        classNames = attr.match(/class=['"]([^'"]*)['"]/)[1].split(/\s+/),
+                        obfuscatedClasses = classNames.map(className => className),
+                        randomClasses = Array.from({ length: getRandomNumber(1, 3) }, () =>
+                            getRandomString(getRandomNumber(6, 7))
+                        );
 
-                    return `${randomBefore} ${attr} ${randomAfter}`;
-                }).join(' ');
+                    obfuscatedAttr = `class="${[...obfuscatedClasses, ...randomClasses].join(' ')}"`;
+                }
 
-            return `<${tagName} ${obfuscatedAttrs}>`;
+                const
+                    randomBefore = getRandomString(getRandomNumber(5, 7)),
+                    randomAfter = getRandomString(getRandomNumber(5, 7));
+
+                return `${randomBefore} ${obfuscatedAttr} ${randomAfter}`;
+            }).join(' ');
+
+            return `<${tagName} ${obfuscatedAttrs}${closingSlash ? ' /' : ''}>`;
         });
     } catch (error) {
         handleError(`Obfuscating HTML failed: ${error.message}`);
