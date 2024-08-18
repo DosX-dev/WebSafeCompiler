@@ -332,7 +332,9 @@ function minifyHtml(content) {
             }
 
             if (!isInPreservedTag) {
-                return match.replace(/\n+/g, '').replace(/\s{2,}/g, ' '); // Remove extra whitespace
+                return match
+                    .replace(/(\r\n|\n|\r)/g, '') // Remove all types of newlines
+                    .replace(/\s{2,}/g, ' '); // Replace multiple spaces with single space
             }
 
             return match;
