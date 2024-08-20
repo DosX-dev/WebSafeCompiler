@@ -113,11 +113,12 @@ function printHelp() {
 
     console.log(`
 ${colors.fg.brightYellow}Usage:${colors.reset}
-  node ${scriptPath} <input_dir> <output_dir> [--drm] [--smart]
+  node ${scriptPath} <input_dir> <output_dir> [--map] [--smart] [--drm]
 
 ${colors.fg.brightYellow}Options:${colors.reset}
   <input_dir>        Directory containing the source files.
   <output_dir>       Directory where processed files will be saved.
+  -m, --map          Generate sitemap.xml in the root of the site
   -d, --drm          Enable code obfuscation (DRM protection).
   -s, --smart        Skip minified JS/CSS files.
   -h, --help         Show this help message.
@@ -157,17 +158,18 @@ function parseArguments() {
     const
         inputDir = args.shift(),
         outputDir = args.shift(),
-        obfuscate = args.includes('-d') || args.includes('--drm'),
-        smart = args.includes('-s') || args.includes('--smart');
+        map = args.includes('-m') || args.includes("--map"),
+        smart = args.includes('-s') || args.includes('--smart'),
+        obfuscate = args.includes('-d') || args.includes('--drm');
 
     if (!inputDir || !outputDir) {
         console.log(
-            `${colors.fg.brightCyan}Usage: node ${scriptPath} <input_dir> <output_dir> [--drm] [--smart]${colors.fg.brightBlack}
+            `${colors.fg.brightCyan}Usage: node ${scriptPath} <input_dir> <output_dir> [--map] [--drm] [--smart]${colors.fg.brightBlack}
 Use --help for more detailed usage instructions.${colors.reset}`);
         process.exit(0);
     }
 
-    return { inputDir, outputDir, obfuscate, smart };
+    return { inputDir, outputDir, map, smart, obfuscate };
 }
 
 function validateDirectories(inputDir, outputDir) {
@@ -186,7 +188,7 @@ function validateDirectories(inputDir, outputDir) {
 }
 
 function validateArguments(inputDir, outputDir, args) {
-    const allowedFlags = ['-d', '-s', '-v', '-h', '--drm', '--smart', '--version', '--help'];
+    const allowedFlags = ['-m', '-s', '-d', '-v', '-h', '--map', '--smart', '--drm', '--version', '--help'];
 
     args.forEach(arg => {
         if (!allowedFlags.includes(arg) && !path.isAbsolute(arg) && !fs.existsSync(arg)) {
@@ -431,7 +433,7 @@ function obfuscateAndMinifyJs(content, obfuscate) {
 }
 
 // Minify a file based on its extension and options
-function minifyFile(file, outputDir, obfuscate = false, smart = false) {
+function processFile(file, outputDir, obfuscate = false, smart = false) {
     try {
         const
             ext = path.extname(file),
@@ -483,6 +485,53 @@ function minifyFile(file, outputDir, obfuscate = false, smart = false) {
     }
 }
 
+function removeIndex(relativePath) {
+    const endings = ['index.html', 'index.htm', 'index.php'];
+    for (const ending of endings) {
+        if (relativePath.endsWith(ending)) {
+            return relativePath.slice(0, -ending.length);
+        }
+    }
+    return relativePath;
+}
+
+function generateSiteMap(contentPath) {
+    const urls = [];
+
+    function walkDir(currentPath) {
+        fs.readdirSync(currentPath).forEach(file => {
+            const
+                fullPath = path.join(currentPath, file),
+                stats = fs.statSync(fullPath);
+
+            if (stats.isDirectory()) {
+                walkDir(fullPath);
+            } else if (stats.isFile() && ['.html', '.htm', '.php'].includes(path.extname(fullPath))) {
+                let relativePath = path.relative(contentPath, fullPath).replace(/\\/g, '/');
+
+                relativePath = '/' + removeIndex(relativePath);
+
+                if (relativePath) {
+                    urls.push(`${relativePath}`);
+                }
+            }
+        });
+    }
+
+    walkDir(contentPath);
+
+    const xml =
+        `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n` +
+        urls.map(url => `  <url>\n    <loc>${url}</loc>\n  </url>`).join('\n') +
+        `\n</urlset>`;
+
+    const siteMapPath = path.join(contentPath, 'sitemap.xml');
+
+    fs.writeFileSync(siteMapPath, xml);
+
+    console.log(`${colors.fg.brightCyan}Generated:${colors.reset} ${siteMapPath}`);
+}
+
 // Print statistics about the files processed
 function printFileStats(files, obfuscate) {
     try {
@@ -512,7 +561,7 @@ function checkDependencies() {
 
 function main() {
     try {
-        const { inputDir, outputDir, obfuscate, smart } = parseArguments();
+        const { inputDir, outputDir, map, smart, obfuscate } = parseArguments();
 
         validateDirectories(inputDir, outputDir);
         checkDependencies();
@@ -524,8 +573,12 @@ function main() {
 
         files.forEach(file => {
             checkFilePermissions(file);
-            minifyFile(file, outputDir, obfuscate, smart);
+            processFile(file, outputDir, obfuscate, smart);
         });
+
+        if (map) {
+            generateSiteMap(outputDir);
+        }
 
         console.log(`\n${colors.bg.brightGreen}${colors.fg.black}[Done!]${colors.reset} The web application files are compiled${obfuscate ? " and protected" : ""}.`);
     } catch (error) {

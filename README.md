@@ -1,23 +1,24 @@
 ![](pics/preview.jpg)
 
 # WebSafeCompiler (WSC)
-**WebSafeCompiler** (WSC) is an advanced utility designed for the optimization, minification, and obfuscation (if you need it) of web applications and websites using `Node.js`. It enhances your web assets by reducing file sizes or providing durable protection against reverse engineering, ensuring your code is deployment-ready and secure.
+**WebSafeCompiler** (WSC) is an advanced utility (websites compiler) designed for the optimization, minification, and obfuscation (if you need it) of web applications and websites using `Node.js`. It enhances your web assets by reducing file sizes or providing durable protection against reverse engineering, ensuring your code is deployment-ready and secure.
 
 ## 🚀 Little about
 To leverage the full potential of **WebSafeCompiler**, execute the following command in your terminal:
 ```bash
-node wsc.js <input_dir> <output_dir> [--drm] [--smart]
+node wsc.js <input_dir> <output_dir> [--map] [--smart] [--drm]
 ```
 
 ### Arguments & options:
 * `<input_dir>`: Directory containing the source files to be processed.
 * `<output_dir>`: Directory where the optimized and obfuscated files will be output.
+* `-m, --map`: Creates a sitemap.xml in the output directory for better SEO
+* `-s, --smart`: Automatically detects minified files and skips them. This includes JS and CSS files.
 * `-d, --drm`: Enables code obfuscation (DRM protection) to secure your source code against unauthorized analysis.
   * **🚫 disabled**: The utility focuses on optimizing your website’s files, ensuring they are lightweight and efficient.
   * **✅ enabled**: The utility emphasizes the protection of your intellectual property by applying rigorous obfuscation techniques to your code.
     * **HTML obfuscation**: HTML files are also obfuscated by adding non-functional random attributes and classes, making it difficult to reverse engineer while maintaining the visual and functional integrity of your web pages.
     * **JavaScript obfuscation**: Files using JavaScript will go through several stages of obfuscation, including adding unused code and encrypting strings.
-* `-s, --smart`: Automatically detects minified files and skips them. This includes JS and CSS files.
 * `-h, --help`: Displays the help message with detailed usage instructions.
 * `-v, --version`: Outputs the current version of WebSafeCompiler.
 
