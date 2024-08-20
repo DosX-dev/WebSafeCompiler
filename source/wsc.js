@@ -119,8 +119,8 @@ ${colors.fg.brightYellow}Options:${colors.reset}
   <input_dir>        Directory containing the source files.
   <output_dir>       Directory where processed files will be saved.
   -m, --map          Generate sitemap.xml in the root of the site
-  -d, --drm          Enable code obfuscation (DRM protection).
   -s, --smart        Skip minified JS/CSS files.
+${colors.fg.red + '*' + colors.reset} -d, --drm          Enable code obfuscation (DRM protection).
   -h, --help         Show this help message.
   -v, --version      Get the current version of WSC.
  
@@ -129,7 +129,7 @@ ${colors.fg.brightGreen}Dependencies used:${colors.reset}
  * ${colors.fg.cyan}javascript-obfuscator:${colors.reset} JavaScript code protection.
  
 ${colors.fg.brightYellow}Example:${colors.reset}
-  node ${scriptPath} "/path/to/source" "/path/to/output" --drm --smart
+  node ${scriptPath} "/path/to/source" "/path/to/output" --map --smart --drm
 
  ${colors.fg.brightBlack}WebSafeCompiler will process all files in the specified source directory,
  perform optimization, and if the obfuscation option is set, protect the
@@ -164,7 +164,7 @@ function parseArguments() {
 
     if (!inputDir || !outputDir) {
         console.log(
-            `${colors.fg.brightCyan}Usage: node ${scriptPath} <input_dir> <output_dir> [--map] [--drm] [--smart]${colors.fg.brightBlack}
+            `${colors.fg.brightCyan}Usage: node ${scriptPath} <input_dir> <output_dir> [--map] [--smart] [--drm]${colors.fg.brightBlack}
 Use --help for more detailed usage instructions.${colors.reset}`);
         process.exit(0);
     }
