@@ -252,27 +252,27 @@ function getRandomNumber(min, max) {
 function obfuscateHtml(html) {
     try {
         return html.replace(/<(\w+)(\s[^>]*?)?(\s*\/)?>/g, (match, tagName, attributes, closingSlash) => {
-            if (!attributes || ['meta', 'noscript'].includes(tagName)) return `<${tagName}${attributes || ''}>`;
+            if (!attributes || ['meta', 'noscript'].includes(tagName)) {
+                return `<${tagName}${attributes || ''}>`;
+            }
 
-            const attrArray = attributes.trim().match(/\S+="[^"]*"|\S+='[^']*'|\S+/g);
+            const attrArray = attributes.trim().match(/\S+="[^"]*"|\S+='[^']*'|\S+/g) || [];
 
             const obfuscatedAttrs = attrArray.map(attr => {
                 let obfuscatedAttr = attr;
 
                 if (/^class=['"]/.test(attr)) {
-                    const
-                        classNames = attr.match(/class=['"]([^'"]*)['"]/)[1].split(/\s+/),
-                        obfuscatedClasses = classNames.map(className => className),
-                        randomClasses = Array.from({ length: getRandomNumber(1, 3) }, () =>
-                            getRandomString(getRandomNumber(6, 7))
-                        );
+                    const classNames = attr.match(/class=['"]([^'"]*)['"]/)[1].split(/\s+/);
+                    const obfuscatedClasses = classNames.map(className => className);
+                    const randomClasses = Array.from({ length: getRandomNumber(1, 3) }, () =>
+                        getRandomString(getRandomNumber(6, 7))
+                    );
 
                     obfuscatedAttr = `class="${[...obfuscatedClasses, ...randomClasses].join(' ')}"`;
                 }
 
-                const
-                    randomBefore = getRandomString(getRandomNumber(5, 7)),
-                    randomAfter = getRandomString(getRandomNumber(5, 7));
+                const randomBefore = getRandomString(getRandomNumber(5, 7));
+                const randomAfter = getRandomString(getRandomNumber(5, 7));
 
                 return `${randomBefore} ${obfuscatedAttr} ${randomAfter}`;
             }).join(' ');
@@ -283,6 +283,7 @@ function obfuscateHtml(html) {
         handleError(`Obfuscating HTML failed: ${error.message}`);
     }
 }
+
 
 // Remove HTML comments
 function removeHtmlComments(content) {
