@@ -8,15 +8,20 @@
     },
     "scripts": {
         "start": "node wsc.js",
-        "test": "echo \"No tests specified\" && exit 0"
+        "test": "node ../tests/browser.js"
     },
     "dependencies": {
-        "uglify-js": "^3.17.0",
-        "javascript-obfuscator": "^4.0.0"
+        "clean-css": "^5.3.3",
+        "javascript-obfuscator": "^4.0.0",
+        "parse5": "^6.0.1",
+        "uglify-js": "^3.17.0"
     },
     "engines": {
         "node": ">=14.0.0"
     },
     "license": "MIT",
-    "author": "DosX"
+    "author": "DosX",
+    "devDependencies": {
+        "playwright": "^1.64.0"
+    }
 }
